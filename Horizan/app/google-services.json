@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "64166773945",
+    "firebase_url": "https://horizan-f3127.firebaseio.com",
+    "project_id": "horizan-f3127",
+    "storage_bucket": "horizan-f3127.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64166773945:android:666e19153946ee04",
+        "android_client_info": {
+          "package_name": "com.horizan.horizan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64166773945-i7hnegops2ltfr83ugjc5t0m5e2tt47l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbOeJSz4d3C12tJkeHR7llZsyK2IdITsA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

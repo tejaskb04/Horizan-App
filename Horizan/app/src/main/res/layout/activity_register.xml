@@ -6,4 +6,55 @@
     android:layout_height="match_parent"
     tools:context="com.horizan.horizan.RegisterActivity">
 
+    <LinearLayout
+        android:id="@+id/register_layout"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/first_name"
+        android:hint="First Name"
+        android:textColorHint="#BDC3C7"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/last_name"
+        android:hint="Last Name"
+        android:textColorHint="#BDC3C7"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/email"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:textColorHint="#BDC3C7"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/password"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:textColorHint="#BDC3C7"
+        android:textColor="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_alignParentBottom="true"
+        android:textColor="#FFFFFF"
+        android:text="Register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
 </RelativeLayout>
