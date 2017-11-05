@@ -57,4 +57,12 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/login_route"
+        android:layout_alignParentBottom="true"
+        android:textColor="#FFFFFF"
+        android:text="Already Registered? Sign-in Here"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>
