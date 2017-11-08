@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -49,12 +50,21 @@ public class RegisterActivity extends AppCompatActivity {
         passwordEditText = (EditText) findViewById(R.id.password);
         registerBtn = (Button) findViewById(R.id.register);
         loginRouteTextView = (TextView) findViewById(R.id.login_route);
+        registerLayout.setBackgroundResource(R.drawable.register_background);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 registerUser();
             }
         });
+
+        // DEBUG CODE BELOW
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        System.out.println("Width: " + width + " Height: " + height);
+        //
     }
 
     private void registerUser() {
