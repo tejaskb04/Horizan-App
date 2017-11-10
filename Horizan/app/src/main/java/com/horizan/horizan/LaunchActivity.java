@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LaunchActivity extends AppCompatActivity {
 
     private Button registerBtn;
@@ -37,5 +39,9 @@ public class LaunchActivity extends AppCompatActivity {
                 startActivity(new Intent(LaunchActivity.this, DashboardActivity.class));
             }
         });
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            // Animation Logic
+            startActivity(new Intent(LaunchActivity.this, DashboardActivity.class));
+        }
     }
 }
