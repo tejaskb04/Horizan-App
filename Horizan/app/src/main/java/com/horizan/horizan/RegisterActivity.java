@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         passwordEditText = (EditText) findViewById(R.id.password);
         registerBtn = (Button) findViewById(R.id.register);
         loginRouteTextView = (TextView) findViewById(R.id.login_route);
-        registerLayout.setBackgroundResource(R.drawable.register_background);
+        //registerLayout.setBackgroundResource(R.drawable.register_background);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -21,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(SettingsActivity.this, LaunchActivity.class));
+                startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
             }
         });
     }
