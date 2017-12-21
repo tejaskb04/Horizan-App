@@ -13,6 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
+    private GoogleApiClient googleApiClient;
     private LinearLayout loginLayout;
     private EditText emailEditText;
     private EditText passwordEditText;
@@ -30,9 +35,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+        getSupportActionBar().hide();*/
         setContentView(R.layout.activity_login);
         firebaseAuth = FirebaseAuth.getInstance();
         loginLayout = (LinearLayout) findViewById(R.id.login_layout);
@@ -46,6 +51,20 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser();
             }
         });
+
+        // google sign-in
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        googleApiClient = new GoogleApiClient.Builder(LoginActivity.this)
+                .enableAutoManage(LoginActivity.this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        // Implement Logic
+                    }
+                })
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     private void loginUser() {
@@ -66,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Login Failed",
                                         Toast.LENGTH_SHORT).show();
 
-                                // DEBUG CODE BELOW
+                                // DEBUG CODE
                                 System.out.println(task.getException());
                                 //
                             }

@@ -13,38 +13,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/email"
-        android:inputType="textEmailAddress"
-        android:hint="Email"
-        android:textColorHint="#BDC3C7"
-        android:textColor="#FFFFFF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/email"
+            android:inputType="textEmailAddress"
+            android:hint="Email"
+            android:textColorHint="#BDC3C7"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <EditText
-        android:id="@+id/password"
-        android:inputType="textPassword"
-        android:hint="Password"
-        android:textColorHint="#BDC3C7"
-        android:textColor="#FFFFFF"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/password"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:textColorHint="#BDC3C7"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/login"
-        android:layout_alignParentBottom="true"
-        android:textColor="#FFFFFF"
-        android:text="Login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/login"
+            android:layout_alignParentBottom="true"
+            android:textColor="#FFFFFF"
+            android:text="Login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/register_route"
         android:layout_alignParentBottom="true"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:text="Create Account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
