@@ -55,8 +55,7 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.toolbar_actions, menu);
+        SearchActivity.this.getMenuInflater().inflate(R.menu.toolbar_actions, menu);
         return true;
     }
 
@@ -69,6 +68,19 @@ public class SearchActivity extends AppCompatActivity {
             }
             case R.id.action_my_location: {
                 // Implement Logic
+                /*mapView.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(MapboxMap mapboxMap) {
+                        Location userLocation = mapboxMap.getMyLocation();
+                        CameraPosition cameraPosition = new CameraPosition.Builder()
+                                .target(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()))
+                                .zoom(13)
+                                .bearing(180)
+                                .tilt(30)
+                                .build();
+                        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000);
+                    }
+                });*/
                 return true;
             }
             default:
