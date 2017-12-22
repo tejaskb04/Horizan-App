@@ -67,20 +67,17 @@ public class SearchActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.action_my_location: {
-                // Implement Logic
-                /*mapView.getMapAsync(new OnMapReadyCallback() {
+                mapView.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(MapboxMap mapboxMap) {
                         Location userLocation = mapboxMap.getMyLocation();
                         CameraPosition cameraPosition = new CameraPosition.Builder()
                                 .target(new LatLng(userLocation.getLatitude(), userLocation.getLongitude()))
                                 .zoom(13)
-                                .bearing(180)
-                                .tilt(30)
                                 .build();
-                        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000);
+                        mapboxMap.easeCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                     }
-                });*/
+                });
                 return true;
             }
             default:
