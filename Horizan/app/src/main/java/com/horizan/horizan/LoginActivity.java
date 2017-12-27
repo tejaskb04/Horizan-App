@@ -127,6 +127,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
+            // Implement Logic
             GoogleSignInAccount acct = result.getSignInAccount();
         }
     }

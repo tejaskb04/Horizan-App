@@ -1,7 +1,16 @@
 package com.horizan.horizan;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.Handler;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +26,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Icon;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
+import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.MarkerViewOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -93,17 +106,35 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                int index = compareUserSearch(s);
+                final int index = compareUserSearch(s);
                 if (index != -1) {
                     final double[] coordinates = getLocation(index);
                     mapView.getMapAsync(new OnMapReadyCallback() {
                         @Override
-                        public void onMapReady(MapboxMap mapboxMap) {
+                        public void onMapReady(final MapboxMap mapboxMap) {
                             CameraPosition cameraPosition = new CameraPosition.Builder()
                                     .target(new LatLng(coordinates[0], coordinates[1]))
                                     .zoom(13)
                                     .build();
                             mapboxMap.easeCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                            final Icon info = drawableToIcon(SearchActivity.this, R.drawable.ic_info_outline_black_24dp);
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mapboxMap.addMarker(new MarkerViewOptions()
+                                            .position(new LatLng(coordinates[0], coordinates[1]))
+                                            .icon(info)
+                                    );
+                                }
+                            }, 50);
+                            /*mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(@NonNull Marker marker) {
+                                    startActivity(new Intent(SearchActivity.this, UniversityInfoActivity.class));
+                                    return false;
+                                }
+                            });*/
                         }
                     });
                 }
@@ -123,7 +154,6 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search_bar: {
-                // Implement Logic
                 return true;
             }
             case R.id.action_my_location: {
@@ -158,6 +188,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private int compareUserSearch(String query) {
+        // Implement Regex
         for (int i = 0; i < universities.size(); i++) {
             if (universities.get(i).equalsIgnoreCase(query)) {
                 return i;
@@ -168,6 +199,17 @@ public class SearchActivity extends AppCompatActivity {
 
     private double[] getLocation(int index) {
         return locations.get(index);
+    }
+
+    private Icon drawableToIcon(@NonNull Context context, @DrawableRes int id) {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(context.getResources(), id, context.getTheme());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        //DrawableCompat.setTint(vectorDrawable, colorRes);
+        vectorDrawable.draw(canvas);
+        return IconFactory.getInstance(context).fromBitmap(bitmap);
     }
 
     @Override
