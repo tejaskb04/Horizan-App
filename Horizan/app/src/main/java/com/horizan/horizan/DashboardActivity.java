@@ -22,7 +22,7 @@ public class DashboardActivity extends AppCompatActivity {
                     startActivity(new Intent(DashboardActivity.this, SearchActivity.class));
                     return true;
                 }
-                case R.id.navigation_settings: {
+                case R.id.navigation_account: {
                     startActivity(new Intent(DashboardActivity.this, SettingsActivity.class));
                     return true;
                 }

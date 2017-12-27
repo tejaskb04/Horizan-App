@@ -26,6 +26,9 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SearchActivity extends AppCompatActivity {
 
     private final String MAPBOX_API_KEY
@@ -35,6 +38,8 @@ public class SearchActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DatabaseReference databaseReference;
     private DatabaseReference universitiesDatabaseReference;
+    private List<String> universities;
+    private List<double[]> locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,8 @@ public class SearchActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         universitiesDatabaseReference = databaseReference.child("universities");
+        universities = new ArrayList<String>();
+        locations = new ArrayList<double[]>();
         universitiesDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,7 +93,20 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                // Implement Logic
+                int index = compareUserSearch(s);
+                if (index != -1) {
+                    final double[] coordinates = getLocation(index);
+                    mapView.getMapAsync(new OnMapReadyCallback() {
+                        @Override
+                        public void onMapReady(MapboxMap mapboxMap) {
+                            CameraPosition cameraPosition = new CameraPosition.Builder()
+                                    .target(new LatLng(coordinates[0], coordinates[1]))
+                                    .zoom(13)
+                                    .build();
+                            mapboxMap.easeCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                        }
+                    });
+                }
                 return false;
             }
 
@@ -127,8 +147,27 @@ public class SearchActivity extends AppCompatActivity {
 
     private void showData(DataSnapshot dataSnapshot) {
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-            System.out.println(ds.child("title").getValue());
+            String title = (String) ds.child("title").getValue();
+            String l  = (String) ds.child("latitude").getValue();
+            String lo = (String) ds.child("longitude").getValue();
+            double latitude = Double.parseDouble(l);
+            double longitude = Double.parseDouble(lo);
+            universities.add(title);
+            locations.add(new double[] {latitude, longitude});
         }
+    }
+
+    private int compareUserSearch(String query) {
+        for (int i = 0; i < universities.size(); i++) {
+            if (universities.get(i).equalsIgnoreCase(query)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private double[] getLocation(int index) {
+        return locations.get(index);
     }
 
     @Override
