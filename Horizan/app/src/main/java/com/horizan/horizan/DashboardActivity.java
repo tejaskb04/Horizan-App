@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class DashboardActivity extends AppCompatActivity {
             return false;
         }
     };
+    private ListView collegeDashboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +40,10 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
+        collegeDashboard = (ListView) findViewById(R.id.college_dashboard);
+        String[] dummyData = new String[] {"dummy_1", "dummy_2", "dummy_3"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DashboardActivity.this, R.layout.dashboard_view,
+                dummyData);
+        collegeDashboard.setAdapter(adapter);
     }
 }

@@ -124,7 +124,6 @@ public class SearchActivity extends AppCompatActivity {
                                 public void run() {
                                     mapboxMap.addMarker(new MarkerViewOptions()
                                             .position(new LatLng(coordinates[0], coordinates[1]))
-                                            .icon(info)
                                     );
                                 }
                             }, 50);
