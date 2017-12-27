@@ -9,7 +9,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.SearchView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -18,6 +24,8 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
+import org.json.JSONObject;
+
 public class SearchActivity extends AppCompatActivity {
 
     private final String MAPBOX_API_KEY
@@ -25,6 +33,8 @@ public class SearchActivity extends AppCompatActivity {
 
     private MapView mapView;
     private Toolbar toolbar;
+    private DatabaseReference databaseReference;
+    private DatabaseReference universitiesDatabaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +63,39 @@ public class SearchActivity extends AppCompatActivity {
         });
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        universitiesDatabaseReference = databaseReference.child("universities");
+        universitiesDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                showData(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Implement Logic
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         SearchActivity.this.getMenuInflater().inflate(R.menu.toolbar_actions, menu);
+        MenuItem item = menu.findItem(R.id.action_search_bar);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                // Implement Logic
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                // Implement Logic
+                return false;
+            }
+        });
         return true;
     }
 
@@ -84,6 +122,12 @@ public class SearchActivity extends AppCompatActivity {
             }
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showData(DataSnapshot dataSnapshot) {
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            System.out.println(ds.child("title").getValue());
         }
     }
 
