@@ -62,8 +62,20 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser();
             }
         });
+        //Picasso.with(LoginActivity.this).setLoggingEnabled(true);
 
         // setting background
+        /*BitmapDrawable loginBackground = (BitmapDrawable) LoginActivity.this.getResources().getDrawable(R.drawable.login_background);
+        int width = loginBackground.getBitmap().getWidth();
+        int height = loginBackground.getBitmap().getHeight();
+        ImageView background = new ImageView(LoginActivity.this);
+        Picasso.with(background.getContext())
+                .load(R.drawable.login_background)
+                .resize(width, height)
+                .centerCrop()
+                .into(background);
+        if (background.getDrawable() != null) System.out.println("BACKGROUND NOT NULL");
+        loginLayout.setBackground(background.getDrawable());*/
         /*final ImageView background = new ImageView(LoginActivity.this);
         Picasso.with(background.getContext())
                 .load(R.drawable.login_background)
