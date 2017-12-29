@@ -1,6 +1,9 @@
 package com.horizan.horizan;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +28,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,6 +62,39 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser();
             }
         });
+
+        // setting background
+        /*final ImageView background = new ImageView(LoginActivity.this);
+        Picasso.with(background.getContext())
+                .load(R.drawable.login_background)
+                .fit()
+                .into(background, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        loginLayout.setBackgroundDrawable(background.getDrawable());
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });*/
+        /*Picasso.with(LoginActivity.this).load(R.drawable.login_background).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                loginLayout.setBackground(new BitmapDrawable(LoginActivity.this.getResources(), bitmap));
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+                // Implement Logic
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                // Implement Logic
+            }
+        });*/
 
         // google sign-in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
