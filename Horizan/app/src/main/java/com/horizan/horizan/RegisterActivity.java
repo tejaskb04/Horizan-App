@@ -57,6 +57,12 @@ public class RegisterActivity extends AppCompatActivity {
                 registerUser();
             }
         });
+        loginRouteTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+        });
 
         // DEBUG CODE
         DisplayMetrics metrics = new DisplayMetrics();
