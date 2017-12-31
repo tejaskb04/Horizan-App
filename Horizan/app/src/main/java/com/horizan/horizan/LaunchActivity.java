@@ -61,6 +61,24 @@ public class LaunchActivity extends AppCompatActivity {
                 }
             };
             timer.start();
+        } else {
+            welcome.setText("Let's get started!");
+            Animation animation = AnimationUtils.loadAnimation(LaunchActivity.this, R.anim.launch_animation);
+            welcome.startAnimation(animation);
+            Thread timer = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } finally {
+                        startActivity(new Intent(LaunchActivity.this, RegisterActivity.class));
+                        finish();
+                    }
+                }
+            };
+            timer.start();
         }
     }
 }
