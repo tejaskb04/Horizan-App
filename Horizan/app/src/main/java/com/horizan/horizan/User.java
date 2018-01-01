@@ -23,4 +23,16 @@ public class User {
     public String getEmail() {
         return email;
     }
+
+    public void setFirstName(String f) {
+        firstName = f;
+    }
+
+    public void setLastName(String l) {
+        lastName = l;
+    }
+
+    public void setEmail(String e) {
+        email = e;
+    }
 }

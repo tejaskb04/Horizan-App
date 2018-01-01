@@ -26,18 +26,22 @@ public class LaunchActivity extends AppCompatActivity {
     //private Button loginBtn;
     //private Button dashboardBtn;
     private TextView welcome;
+    private TextView name;
     private DatabaseReference databaseReference;
     private DatabaseReference usersDatabaseReference;
     private User user;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
         welcome = (TextView) findViewById(R.id.welcome);
+        name = (TextView) findViewById(R.id.name);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         usersDatabaseReference = databaseReference.child("users");
         user = new User("", "", "");
+        uid = "";
         usersDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -46,7 +50,7 @@ public class LaunchActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                // Implement Logic
             }
         });
         /*registerBtn = (Button) findViewById(R.id.register);
@@ -71,10 +75,11 @@ public class LaunchActivity extends AppCompatActivity {
             }
         });*/
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            //FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            //System.out.println(firebaseUser.getDisplayName());
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            uid = firebaseUser.getUid();
             Animation animation = AnimationUtils.loadAnimation(LaunchActivity.this, R.anim.launch_animation);
             welcome.startAnimation(animation);
+            name.startAnimation(animation);
             Thread timer = new Thread() {
                 @Override
                 public void run() {
@@ -112,7 +117,12 @@ public class LaunchActivity extends AppCompatActivity {
 
     private void getData(DataSnapshot dataSnapshot) {
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
+            if (uid.equals(ds.getKey())) {
+                user.setFirstName((String) ds.child("firstName").getValue());
+                user.setLastName((String) ds.child("lastName").getValue());
+                user.setEmail((String) ds.child("email").getValue());
+            }
         }
+        name.setText(user.getFirstName());
     }
 }
