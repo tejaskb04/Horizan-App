@@ -33,7 +33,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:menu="@menu/side_navigation"
-            android:layout_gravity="start" />
+            android:layout_gravity="start"
+            app:headerLayout="@layout/side_navigation_header" />
 
         <com.mapbox.mapboxsdk.maps.MapView
             android:id="@+id/mapView"
