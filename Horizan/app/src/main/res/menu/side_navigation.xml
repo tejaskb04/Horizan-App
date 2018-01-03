@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/major"
+        android:title="Major"
+        />
+    <item
+        android:id="@+id/major_2"
+        android:title="Major"
+        />
+    <item
+        android:id="@+id/major_3"
+        android:title="Major"
+        />
+    <item
+        android:id="@+id/major_4"
+        android:title="Major"
+        />
+
+</menu>
