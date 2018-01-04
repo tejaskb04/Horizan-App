@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/dummy"
+        android:title="Dummy"
+        />
+    <item
         android:id="@+id/major"
-        android:title="Major"
+        android:title="Major(s)"
         />
     <item
-        android:id="@+id/major_2"
-        android:title="Major"
-        />
-    <item
-        android:id="@+id/major_3"
-        android:title="Major"
+        android:id="@+id/standardized_testing"
+        android:title="Standardized Testing"
+        android:icon="@drawable/ic_assessment_black_24dp"
         />
     <item
         android:id="@+id/major_4"
