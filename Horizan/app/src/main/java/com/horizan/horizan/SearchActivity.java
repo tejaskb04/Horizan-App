@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.SearchView;
 
@@ -82,6 +83,21 @@ public class SearchActivity extends AppCompatActivity {
                         .tilt(30)
                         .build();
                 mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000);
+                mapboxMap.getMarkerViewManager().setOnMarkerViewClickListener(new MapboxMap.OnMarkerViewClickListener() {
+                    @Override
+                    public boolean onMarkerClick(@NonNull Marker marker, @NonNull View view,
+                                                 @NonNull MapboxMap.MarkerViewAdapter adapter) {
+                        startActivity(new Intent(SearchActivity.this, UniversityInfoActivity.class));
+                        return false;
+                    }
+                });
+                /*mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(@NonNull Marker marker) {
+                        startActivity(new Intent(SearchActivity.this, UniversityInfoActivity.class));
+                        return false;
+                    }
+                });*/
             }
         });
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -141,13 +157,6 @@ public class SearchActivity extends AppCompatActivity {
                             Intent collegeInfo = new Intent("collegeInfo");
                             collegeInfo.putExtra("name", universities.get(index));
                             LocalBroadcastManager.getInstance(SearchActivity.this).sendBroadcast(collegeInfo);
-                            /*mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
-                                @Override
-                                public boolean onMarkerClick(@NonNull Marker marker) {
-                                    startActivity(new Intent(SearchActivity.this, UniversityInfoActivity.class));
-                                    return false;
-                                }
-                            });*/
                         }
                     });
                 }
