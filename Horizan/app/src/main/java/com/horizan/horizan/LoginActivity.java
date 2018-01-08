@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passwordEditText;
     private Button loginBtn;
+    private Button registerBtn;
     //private TextView registerRouteTextView;
 
     @Override
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = (EditText) findViewById(R.id.email);
         passwordEditText = (EditText) findViewById(R.id.password);
         loginBtn = (Button) findViewById(R.id.login);
+        registerBtn = (Button) findViewById(R.id.register);
         //registerRouteTextView = (TextView) findViewById(R.id.register_route);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,51 +66,14 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser();
             }
         });
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
         //Picasso.with(LoginActivity.this).setLoggingEnabled(true);
-
-        // setting background
-        /*BitmapDrawable loginBackground = (BitmapDrawable) LoginActivity.this.getResources().getDrawable(R.drawable.login_background);
-        int width = loginBackground.getBitmap().getWidth();
-        int height = loginBackground.getBitmap().getHeight();
-        ImageView background = new ImageView(LoginActivity.this);
-        Picasso.with(background.getContext())
-                .load(R.drawable.login_background)
-                .resize(width, height)
-                .centerCrop()
-                .into(background);
-        if (background.getDrawable() != null) System.out.println("BACKGROUND NOT NULL");
-        loginLayout.setBackground(background.getDrawable());*/
-        /*final ImageView background = new ImageView(LoginActivity.this);
-        Picasso.with(background.getContext())
-                .load(R.drawable.login_background)
-                .fit()
-                .into(background, new com.squareup.picasso.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        loginLayout.setBackgroundDrawable(background.getDrawable());
-                    }
-
-                    @Override
-                    public void onError() {
-
-                    }
-                });*/
-        /*Picasso.with(LoginActivity.this).load(R.drawable.login_background).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                loginLayout.setBackground(new BitmapDrawable(LoginActivity.this.getResources(), bitmap));
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-                // Implement Logic
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                // Implement Logic
-            }
-        });*/
 
         // google sign-in
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

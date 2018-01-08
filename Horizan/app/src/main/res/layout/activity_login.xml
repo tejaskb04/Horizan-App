@@ -122,21 +122,44 @@
                 android:button="@drawable/radio_button"
                 android:paddingLeft="5dp"
                 android:textSize="13sp" />-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/login"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:textColor="#FFFFFF"
-                android:text="Login"
-                android:textStyle="normal"
-                android:background="@drawable/register_button"
-                android:layout_gravity="center"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="36dp"
-                />
+                <Button
+                    android:id="@+id/register"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:textColor="#FFFFFF"
+                    android:text="Register Now!"
+                    android:textStyle="normal"
+                    android:background="@drawable/register_button"
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="36dp"
+                    />
+
+                <Button
+                    android:id="@+id/login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:textColor="#FFFFFF"
+                    android:text="Login"
+                    android:textStyle="normal"
+                    android:background="@drawable/login_button"
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="36dp"
+                    />
+
+            </LinearLayout>
 
             <com.google.android.gms.common.SignInButton
                 android:id="@+id/sign_in_button"
