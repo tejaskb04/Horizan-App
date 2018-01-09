@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -41,15 +42,25 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class SearchActivity extends AppCompatActivity {
 
     private final String MAPBOX_API_KEY
             = "pk.eyJ1Ijoic3Vuam9uYXRoYW41IiwiYSI6ImNqOWhrbGZlMTM5aW8zM25yd2VpMWozNmgifQ.WkXwJMVvp5uZ8XaCArnJTQ";
+    private final String GOOGLE_PLACES_API_KEY = "AIzaSyAH008n41rXGsO2oYtJgZduebNYwN127_I";
 
     private MapView mapView;
     private Toolbar toolbar;
@@ -59,6 +70,7 @@ public class SearchActivity extends AppCompatActivity {
     private DatabaseReference universitiesDatabaseReference;
     private List<String> universities;
     private List<double[]> locations;
+    private String placeId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +135,64 @@ public class SearchActivity extends AppCompatActivity {
                 // Implement Logic
             }
         });
+    }
+
+    private String createPlaceSearchUrl(double lat, double lng) {
+        StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        stringBuilder.append("location=").append(lat).append(",").append(lng);
+        stringBuilder.append("&radius=").append(100);
+        stringBuilder.append("&types=").append("university");
+        stringBuilder.append("&sensor=true");
+        stringBuilder.append("&key=").append(GOOGLE_PLACES_API_KEY);
+        return stringBuilder.toString();
+    }
+
+    private String createPlaceDetailsUrl(String placeId) {
+        StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/details/json?");
+        stringBuilder.append("placeid=").append(placeId);
+        stringBuilder.append("&key=").append(GOOGLE_PLACES_API_KEY);
+        return stringBuilder.toString();
+    }
+
+    private class PlaceSearchCallBackTask extends AsyncTask<String, Integer, String> {
+        
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                URL url = new URL(params[0]);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpsURLConnection
+                        .getInputStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line = null;
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(line + "\n");
+                }
+                return stringBuilder.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return e.toString();
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            try {
+                JSONObject data = new JSONObject(result);
+                if (data.getString("status").equalsIgnoreCase("OK")) {
+                    JSONArray jsonArray = data.getJSONArray("results");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        final JSONObject place = jsonArray.getJSONObject(i);
+                        if (!place.isNull("place_id")) {
+                            placeId = place.getString("place_id");
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

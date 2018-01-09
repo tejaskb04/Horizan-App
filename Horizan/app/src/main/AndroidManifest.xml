@@ -29,6 +29,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".UniversityInfoActivity"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAH008n41rXGsO2oYtJgZduebNYwN127_I" />
     </application>
 
 </manifest>
